@@ -1,103 +1,58 @@
 package addressbook;
-/* @Description - To create a contacts in address book with first name, last name, address, city, state,
- * zip,mobile number. */
+
+
+import java.util.Objects;
+
 public class Contacts {
     public String firstName;
+    public String name;
     public String lastName;
     public String address;
     public String city;
     public String state;
-    public int zip;
-    public long mobileNumber;
-    public String emailId;
+    public String zip;
+    public String phoneNumber;
+    public String email;
+    public int type;
 
-    public Contacts(String firstName, String lastName, String address, String city, String state, int zip, long mobileNumber, String emailId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.mobileNumber = mobileNumber;
-        this.emailId = emailId;
+    public Contacts(int type,String name,String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
+        this.type=type;
+        this.name=name;
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.address=address;
+        this.city=city;
+        this.state=state;
+        this.zip=zip;
+        this.phoneNumber=phoneNumber;
+        this.email=email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public int getZip() {
-        return zip;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-
-    public long getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(long mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public Contacts(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email) {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.address=address;
+        this.city=city;
+        this.state=state;
+        this.zip=zip;
+        this.phoneNumber=phoneNumber;
+        this.email=email;
     }
 
     @Override
-    public String toString() {
-        return "Contacts{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip=" + zip +
-                ", mobileNumber=" + mobileNumber +
-                ", emailId='" + emailId + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contacts addressBookData = (Contacts) o;
+        return zip == addressBookData.zip && Objects.equals(name, addressBookData.name) &&
+                Objects.equals(firstName, addressBookData.firstName) &&
+                Objects.equals(lastName, addressBookData.lastName) &&
+                Objects.equals(address, addressBookData.address) &&
+                Objects.equals(city, addressBookData.city) &&
+                Objects.equals(state, addressBookData.state) &&
+                Objects.equals(phoneNumber, addressBookData.phoneNumber) &&
+                Objects.equals(email, addressBookData.email) &&
+                Objects.equals(type, addressBookData.type);
     }
-
 }
+
