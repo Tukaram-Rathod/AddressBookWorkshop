@@ -106,11 +106,30 @@ public class AddressBook {
         String addressBookName = sc.next();
         AddressBookList addressBookListobj = new AddressBookList(addressBookName);
     }
+    /* Description - delete contacts in address book  using their name */
+    public void deleteContact() {
+        if (contacts.isEmpty()) {
+            System.out.println("Contact list is empty.");
+        } else {
+            System.out.println("Enter the first name to delete contact.");
+            String name = sc.next();
+            Iterator<Integer> itr = contacts.keySet().iterator();
+            while(itr.hasNext()) {
+                int key = itr.next();
+                if (contacts.get(key).firstName.equals(name)) {
+                    contacts.remove(key);
+                    System.out.println("Contact deleted with first name : "+name);
+                }
+            }
+        }
+    }
     /*Main Method*/
     public static void main(String[] args) {
+        AddressBook addressbook = new AddressBook();
+       // addressbook.addContacts();
         int choice = 1;
         do {
-            System.out.println("Enter your choice\n1. Add Contact\t\t2. Edit Contact\n3. Delete Contact\t3. Exit");
+            System.out.println("Enter your choice\n1. Add Contact\t\t2. Edit Contact\n3. Delete Contact\t4. Exit");
             int userInput = sc.nextInt();
             switch (userInput) {
                 case 1:
@@ -118,6 +137,9 @@ public class AddressBook {
                     break;
                 case 2:
                     addressbook.editContact();
+                    break;
+                case 3 :
+                    addressbook.deleteContact();
                     break;
                 default:
                     System.out.println("You press exit.\nThank You!");
