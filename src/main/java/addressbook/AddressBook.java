@@ -1,6 +1,7 @@
 package addressbook;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /* @Description - To create a contacts in address book with first name, last name, address, city, state,
  * zip,mobile number.*/
@@ -21,6 +22,8 @@ public class AddressBook {
                     "\n4. Create New AddressBook" +
                     "\n5. Search Person By City" +
                     "\n6. Search Person By state" +
+                    "\n7. Count Person By state" +
+                    "\n8. Count Person By City" +
                     "\n0. Exit");
             int userInput = sc.nextInt();
             switch (userInput) {
@@ -41,6 +44,12 @@ public class AddressBook {
                     break;
                 case 6:
                     addressbook.searchPersonByState();
+                    break;
+                case 7:
+                    addressbook.countPersonByCity();
+                    break;
+                case 8:
+                    addressbook.countPersonByState();
                     break;
                 default:
                     System.out.println("You press exit.\nThank You!");
@@ -144,6 +153,22 @@ public class AddressBook {
         String addressBookName = sc.next();
         AddressBookList addressBookListobj = new AddressBookList(addressBookName);
     }
+    /* Description - to count  person by state name */
+    public void countPersonByState() {
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        System.out.println(conatactlist.stream().collect(Collectors.groupingBy((Contacts C) -> C.getState(),Collectors.counting())));
+    }
+
+    /* Description - to count  person by city name */
+    public void countPersonByCity() {
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        System.out.println(conatactlist.stream().collect(Collectors.groupingBy((Contacts C) -> C.getCity(),Collectors.counting())));
+    }
+
     /* Description - delete contacts in address book  using their name */
     public void deleteContact() {
         if (contacts.isEmpty()) {
