@@ -179,7 +179,7 @@ public class AddressBook {
     public void searchPersonByState() {
         System.out.println("Enter the state to search person.");
         String stateName = sc.next();
-        System.out.println("Person Search by " + stateName);
+        System.out.println("Person Search by: " + stateName);
         Collection<Contacts> values = contacts.values();
         ArrayList<Contacts> conatactlist
                 = new ArrayList<>(values);
