@@ -45,7 +45,7 @@ public class AddressBook {
         }
         System.out.println("\nContacts added Successfully");
     }
-    /* @Description- Checking Contacts Is Exist Or Not In AddressBook  */
+    /* @Description- Checking Duplicate Contacts Is Exist Or Not In AddressBook  */
     private boolean check(String firstName) {
         if (contacts.isEmpty())
             return false;
