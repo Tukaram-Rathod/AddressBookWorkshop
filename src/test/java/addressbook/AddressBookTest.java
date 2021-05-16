@@ -1,49 +1,51 @@
 package addressbook;
+import org.junit.Assert;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
 public class AddressBookTest {
-    private static String HOME = System.getProperty("user.dir");
-    private static String checkCntacts = "Employee Details";
-
+    //uc-13
     @Test
-    public void givenPathWhenCheckedThenConfirm() throws IOException {
-        System.out.println(HOME);
-        /* Check File Exist */
-        Path homePath = Paths.get(HOME);
-        Assertions.assertTrue(Files.exists(homePath));
+    public void given3ContactsWhenWrittenToIOFileShouldMatchContactEntries() {
+        Contacts[] contacts = {
+                new Contacts("Ashish", "Rathod", "Gangakhed", "Parbhani", "Maharashtra", "431514", "8788594431", "Ashu02@gmail.com"),
+                new Contacts("Sakha", "Rathod", "Gangakhed", "Parbhani", "Maharashtra", "431514", "9420416222", "Sakha@gmil.com"),
+                new Contacts("Satya", "Jadhav", "Parbhani", "Aurangabad", "Mit ", "431010", "7721594431", "Satya09379@gmail.com")
+        };
+        AddressBookMain addressBookMain;
+        addressBookMain = new AddressBookMain(Arrays.asList(contacts));
+        addressBookMain.writeAddressBookData(AddressBookMain.IOService.FILE_IO);
+        System.out.println("Reading from file -");
+        addressBookMain.readAddressBookData(AddressBookMain.IOService.FILE_IO);
+        long entries = addressBookMain.countEntries(AddressBookMain.IOService.FILE_IO);
+        addressBookMain.printData(AddressBookMain.IOService.FILE_IO);
+        Assert.assertEquals(3, entries);
+    }
+    //uc-14
+    @Test
+    public void givenContactWhenReadFromCSVFile_shouldMatchWithFile() {
+        AddressBookMain addressBookMain;
+        addressBookMain = new AddressBookMain();
+        addressBookMain.writeCSVAddressBookData(AddressBookMain.IOService.CSV_FILE);
+        int entries = (int) addressBookMain.readCSVAddressBookData(AddressBookMain.IOService.CSV_FILE);
+        Assert.assertEquals(3,entries);
+    }
+    //uc-15
+    @Test
+    public void givenContactWhenReadFromJSONFile_shouldMatchWithFile() throws JsonMappingException {
+        Contacts[] contacts = {
+                new Contacts("Ashish", "Rathod", "Gangakhed", "Parbhani", "Maharashtra", "431514", "8788594431", "Ashu02@gmail.com"),
+                new Contacts("Sakha", "Rathod", "Gangakhed", "Parbhani", "Maharashtra", "431514", "9420416222", "Sakha@gmil.com"),
+                new Contacts("Satya", "Jadhav", "Parbhani", "Aurangabad", "Mit ", "431010", "7721594431", "Satya09379@gmail.com")
+        };
+        AddressBookMain addressBookMain;
+        addressBookMain = new AddressBookMain(Arrays.asList(contacts));
+        addressBookMain.writeAddressBookData(AddressBookMain.IOService.FILE_IO);
+        addressBookMain.readJSONAddressBookData(AddressBookMain.IOService.JSON_FILE);
+        boolean result = addressBookMain.writeJSONAddressBookData(AddressBookMain.IOService.JSON_FILE);
+        Assert.assertTrue(result);
 
-        /* Delete File and Check File Not Exist */
-        Path path = Paths.get(HOME + "/" + checkCntacts);
-        if (Files.exists(path)) Files.delete(path);
-        Assertions.assertTrue(Files.notExists(path));
-
-        /* Creating  directory */
-        Files.createDirectories(path);
-        Assertions.assertTrue(Files.exists(path));
-
-        /* Creating File */
-        IntStream.range(1, 10).forEach(cntr -> {
-            Path tempFile = Paths.get(path + "/temp" + cntr);
-            Assertions.assertTrue(Files.notExists(tempFile));
-            try {
-                Files.createFile(tempFile);
-            } catch (IOException e) {
-            }
-            Assertions.assertTrue(Files.exists(tempFile));
-        });
-
-        /* List Files, Directories as well as Files with Extension */
-        Files.list(path).filter(Files::isRegularFile).forEach(System.out::println);
-        Files.newDirectoryStream(path).forEach(System.out::println);
-        Files.newDirectoryStream(path, path1 -> path.toFile().isFile() && path.toString().startsWith("temp")).forEach(System.out::println);
     }
 
 }

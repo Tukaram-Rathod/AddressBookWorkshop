@@ -1,17 +1,17 @@
 package addressbook;
-/* @Description - To create a contacts in address book with first name, last name, address, city, state,
- * zip,mobile number. */
+
+
 public class Contacts {
     public String firstName;
     private String lastName;
     private String address;
     public String city;
     public String state;
-    private int zip;
-    private long mobileNumber;
+    private String zip;
+    private String mobileNumber;
     private String emailId;
 
-    public Contacts(String firstName, String lastName, String address, String city, String state, int zip, long mobileNumber, String emailId) {
+    public Contacts(String firstName, String lastName, String address, String city, String state, String zip, String mobileNumber, String emailId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -62,19 +62,19 @@ public class Contacts {
         this.state = state;
     }
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
-    public long getMobileNumber() {
+    public String getMobileNumber() {
         return mobileNumber;
     }
 
-    public void setMobileNumber(long mobileNumber) {
+    public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
 
@@ -99,6 +99,5 @@ public class Contacts {
                 ", emailId='" + emailId + '\'' +
                 '}';
     }
-    public void put(int indexValue, Contacts contacts) {
-    }
 }
+

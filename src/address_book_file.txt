@@ -1,0 +1,3 @@
+Contacts{firstName='Ashish', lastName='Rathod', address='Gangakhed', city='Parbhani', state='Maharashtra', zip=431514, mobileNumber=8788594431, emailId='Ashu02@gmail.com'}
+Contacts{firstName='Sakha', lastName='Rathod', address='Gangakhed', city='Parbhani', state='Maharashtra', zip=431514, mobileNumber=9420416222, emailId='Sakha@gmil.com'}
+Contacts{firstName='Satya', lastName='Jadhav', address='Parbhani', city='Aurangabad', state='Mit ', zip=431010, mobileNumber=7721594431, emailId='Satya09379@gmail.com'}
