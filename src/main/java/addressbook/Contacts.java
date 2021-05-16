@@ -1,6 +1,5 @@
 package addressbook;
-/* @Description - To create a contacts in address book with first name, last name, address, city, state,
- * zip,mobile number. */
+
 public class Contacts {
     public String firstName;
     public String lastName;
@@ -85,7 +84,6 @@ public class Contacts {
     public void setEmailId(String emailId) {
         this.emailId = emailId;
     }
-
     @Override
     public String toString() {
         return "Contacts{" +
@@ -99,5 +97,5 @@ public class Contacts {
                 ", emailId='" + emailId + '\'' +
                 '}';
     }
-
 }
+
