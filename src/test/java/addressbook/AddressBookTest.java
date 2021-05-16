@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class AddressBookTest {
     //uc-13
@@ -58,6 +59,15 @@ public class AddressBookTest {
         LocalDate endDate = LocalDate.now();
         List<Contacts> addressBookDataList = addressBook.readContactDataForGivenDateRange(startDate, endDate);
         Assert.assertEquals(4, addressBookDataList.size());
+    }
+    //uc-19
+    @Test
+    public void givenContacts_RetrieveNumberOfContacts_ByCityOrState() {
+        AddressBookMain addressBook = new AddressBookMain();
+        addressBook.readAddressBookDataDB(AddressBookMain.IOService.DB_IO);
+        Map<String, Integer> contactByCityOrStateMap = addressBook.readContactByCityOrState();
+        Assert.assertEquals((int) contactByCityOrStateMap.get("Parbhani"), 1);
+        Assert.assertEquals((int) contactByCityOrStateMap.get("Maharashtra"), 2);
     }
 
 }

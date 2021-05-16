@@ -6,6 +6,7 @@ import java.time.LocalDate;
 public class AddressBookMain {
     public static final String CSV_FILE_PATH = "address-book-csv.csv";
     public static final String JSON_FILE_PATH = "address-book-json.json";
+
     public enum IOService {
         CONSOLE_IO, FILE_IO, CSV_FILE, JSON_FILE,DB_IO;
     }
@@ -97,6 +98,10 @@ public class AddressBookMain {
     public List<Contacts> readContactDataForGivenDateRange(LocalDate startDate, LocalDate endDate) {
         this.addressBookDataList = addressBookDB.getContactForGivenDateRange(startDate, endDate);
         return addressBookDataList;
+    }
+    //uc-19
+    public Map<String, Integer> readContactByCityOrState() {
+        return addressBookDB.getContactsByCityOrState();
     }
 
     public long countEntries(IOService ioService) {
