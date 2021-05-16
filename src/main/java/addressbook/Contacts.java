@@ -3,13 +3,13 @@ package addressbook;
  * zip,mobile number. */
 public class Contacts {
     public String firstName;
-    private String lastName;
-    private String address;
+    public String lastName;
+    public String address;
     public String city;
     public String state;
-    private int zip;
-    private long mobileNumber;
-    private String emailId;
+    public int zip;
+    public long mobileNumber;
+    public String emailId;
 
     public Contacts(String firstName, String lastName, String address, String city, String state, int zip, long mobileNumber, String emailId) {
         this.firstName = firstName;
@@ -99,6 +99,5 @@ public class Contacts {
                 ", emailId='" + emailId + '\'' +
                 '}';
     }
-    public void put(int indexValue, Contacts contacts) {
-    }
+
 }

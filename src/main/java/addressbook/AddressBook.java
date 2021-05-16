@@ -1,49 +1,77 @@
 package addressbook;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 /* @Description - To create a contacts in address book with first name, last name, address, city, state,
  * zip,mobile number.*/
 public class AddressBook {
+    private static final String HOME = System.getProperty("user.dir");
+    private static final String fileName = "AddressBook.json";
+    private static final Path homePath = Paths.get(HOME);
+    private static final Gson gson = new GsonBuilder().create();
 
-    private static List<Contacts> employeeContactsList;
-    public AddressBook(List<Contacts> employeeContactsList) {
-        this.employeeContactsList = employeeContactsList;
+    /* @Description - To write  the contacts details. */
+    public static boolean jsonWrite(Contacts contacts) {
+        if (Files.exists(homePath)) {
+            Path filePath = Paths.get(HOME + "/" + fileName);
+            try {
+                if (Files.exists(filePath)) {
+                    String s = gson.toJson(contacts);
+                    FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
+                    fileWriter.write(s);
+                    fileWriter.close();
+                    return true;
+                } else {
+                    Files.createFile(filePath);
+                    String s = gson.toJson(contacts);
+                    FileWriter fileWriter = new FileWriter(String.valueOf(filePath));
+                    fileWriter.write(s);
+                    fileWriter.close();
+                    return true;
+                }
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
     }
-    /* @Description - to write the employee contacts details */
-    private static void writeEmployeeContactsData(Scanner consoleInputReader) {
-        System.out.println("Enter your first name");
-        String firstName = consoleInputReader.nextLine();
-        System.out.println("Enter your last name");
-        String lastName = consoleInputReader.nextLine();
-        System.out.println("Enter your address name");
-        String address = consoleInputReader.nextLine();
-        System.out.println("Enter your city name");
-        String city = consoleInputReader.nextLine();
-        System.out.println("Enter your state name");
-        String state = consoleInputReader.nextLine();
-        System.out.println("Enter your zip  code ");
-        int  zip = consoleInputReader.nextInt();
-        System.out.println("Enter your zip  code ");
-        long  mobileNumber = consoleInputReader.nextLong();
-        System.out.println("Enter your email Id");
-        String emailId = consoleInputReader.nextLine();
+    /* @Description - To read the contacts details. */
 
+    public static boolean jsonRead() {
+        if (Files.exists(homePath)) {
+            Path filePath = Paths.get(HOME + "/" + fileName);
+            try {
+                if (Files.exists(filePath)) {
+                    BufferedReader br = new BufferedReader(
+                            new FileReader(String.valueOf(filePath)));
+                    Contacts contactPerson = gson.fromJson(br, Contacts.class);
+                    System.out.println("ContactPerson{" +
+                            "firstName='" + contactPerson.firstName + '\'' +
+                            ", lastName='" + contactPerson.lastName + '\'' +
+                            ", address='" + contactPerson.address + '\'' +
+                            ", city='" + contactPerson.city + '\'' +
+                            ", state='" + contactPerson.state + '\'' +
+                            ", zip=" + contactPerson.zip +
+                            ", mobileNumber='" + contactPerson.mobileNumber + '\'' +
+                            ", email='" + contactPerson.emailId + '\'' +
+                            '}' );
+                    return true;
+                }
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
     }
-    /* @Description - to read  the employee contacts details */
-    private static void readEmployeeContactsData() {
-        System.out.println("Write employee contacts details " + employeeContactsList);
-    }
-    /*Main Method*/
-    public static void main(String[] args) {
-        ArrayList<Contacts> employeePayrollList = new ArrayList<>();
-        AddressBook addressBook = new AddressBook(employeeContactsList);
-        Scanner consoleInputReader = new Scanner(System.in);
-        AddressBook.writeEmployeeContactsData(consoleInputReader);
-        AddressBook.readEmployeeContactsData();
-
-    }
-
 
 }
