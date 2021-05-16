@@ -5,8 +5,8 @@ public class Contacts {
     public String firstName;
     private String lastName;
     private String address;
-    private String city;
-    private String state;
+    public String city;
+    public String state;
     private int zip;
     private long mobileNumber;
     private String emailId;

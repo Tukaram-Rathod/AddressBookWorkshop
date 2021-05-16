@@ -1,8 +1,6 @@
 package addressbook;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
 
 /* @Description - To create a contacts in address book with first name, last name, address, city, state,
  * zip,mobile number.*/
@@ -12,6 +10,46 @@ public class AddressBook {
     public HashMap<Integer,Contacts> contacts = new HashMap<>();
     public static Scanner sc = new Scanner(System.in);
     static AddressBook addressbook = new AddressBook();
+
+    public void selectOption() {
+        int choice = 1;
+        do {
+            System.out.println("Enter your choice" +
+                    "\n1. Add Contact" +
+                    "\n2. Edit Contact" +
+                    "\n3. Delete Contact" +
+                    "\n4. Create New AddressBook" +
+                    "\n5. Search Person By City" +
+                    "\n6. Search Person By state" +
+                    "\n0. Exit");
+            int userInput = sc.nextInt();
+            switch (userInput) {
+                case 1:
+                    addressbook.addContacts();
+                    break;
+                case 2:
+                    addressbook.editContact();
+                    break;
+                case 3:
+                    addressbook.deleteContact();
+                    break;
+                case 4:
+                    addressbook.createNewAddressBook();
+                    break;
+                case 5:
+                    addressbook.searchPersonByCity();
+                    break;
+                case 6:
+                    addressbook.searchPersonByState();
+                    break;
+                default:
+                    System.out.println("You press exit.\nThank You!");
+                    choice = 0;
+                    break;
+            }
+        }
+        while (choice != 0);
+    }
 
     /* @Description- Add new contacts in address book  */
     private void addContacts() {
@@ -123,30 +161,37 @@ public class AddressBook {
             }
         }
     }
+    /* Description - to search person by city name */
+    public void searchPersonByCity() {
+        System.out.println("Enter the city to search person.");
+        String cityName = sc.next();
+        System.out.println("Person Search by " + cityName);
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        Dictionary dictWithCity = new Hashtable();
+        conatactlist.stream().filter(n -> n.city.contains(cityName)).forEach(contactlist -> dictWithCity.put(contactlist.firstName, cityName));
+        for (Enumeration i = dictWithCity.keys(); i.hasMoreElements(); ) {
+            System.out.println(i.nextElement());
+        }
+    }
+    /* Description - to search person by state wise */
+    public void searchPersonByState() {
+        System.out.println("Enter the state to search person.");
+        String stateName = sc.next();
+        System.out.println("Person Search by " + stateName);
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        Dictionary dictWithState = new Hashtable();
+        conatactlist.stream().filter(n -> n.state.contains(stateName)).forEach(contactlist -> dictWithState.put(contactlist.firstName, stateName));
+        for (Enumeration i = dictWithState.keys(); i.hasMoreElements(); ) {
+            System.out.println(i.nextElement());
+        }
+    }
     /*Main Method*/
     public static void main(String[] args) {
         AddressBook addressbook = new AddressBook();
-        addressbook.addContacts();
-        int choice = 1;
-        do {
-            System.out.println("Enter your choice\n1. Add Contact\t\t2. Edit Contact\n3. Delete Contact\t4. Exit");
-            int userInput = sc.nextInt();
-            switch (userInput) {
-                case 1:
-                    addressbook.addContacts();
-                    break;
-                case 2:
-                    addressbook.editContact();
-                    break;
-                case 3 :
-                    addressbook.deleteContact();
-                    break;
-                default:
-                    System.out.println("You press exit.\nThank You!");
-                    choice = 0;
-                    break;
-            }
-        }
-        while (choice != 0);
+        addressbook.selectOption();
     }
 }
