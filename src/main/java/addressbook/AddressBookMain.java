@@ -2,6 +2,7 @@ package addressbook;
 
 import java.util.*;
 import java.time.LocalDate;
+import java.sql.Date;
 
 public class AddressBookMain {
     public static final String CSV_FILE_PATH = "address-book-csv.csv";
@@ -108,6 +109,43 @@ public class AddressBookMain {
                                int zip, String phoneNumber, String email, Date date) {
         addressBookDataList.add(addressBookDB.addContact(type, name, firstName, lastName, address, city, state, zip, phoneNumber, email, (java.sql.Date) date));
     }
+    //uc-21
+    public void addDetails(List<Contacts> addressBookDataList) {
+        addressBookDataList.forEach(addressBookData -> {
+            System.out.println("Employee being added : " + addressBookData.name);
+            this.addContactToDB(addressBookData.type,addressBookData.name,addressBookData.firstName, addressBookData.lastName, addressBookData.address, addressBookData.city,
+                    addressBookData.state, addressBookData.zip, addressBookData.phoneNumber, addressBookData.email,
+                    addressBookData.date);
+            System.out.println("Employee added : " + addressBookData.name);
+        });
+        System.out.println("" + this.addressBookDataList);
+    }
+
+    public void addDetailsWithThreads(List<Contacts> addressBookDataList) {
+        Map<Integer, Boolean> contactAdditionStatus = new HashMap<>();
+        addressBookDataList.forEach(addressBookData -> {
+            Runnable task = () -> {
+                contactAdditionStatus.put(addressBookData.hashCode(), false);
+                System.out.println("Employee being added : " + Thread.currentThread().getName());
+                this.addContactToDB(addressBookData.type,addressBookData.name,addressBookData.firstName, addressBookData.lastName,
+                        addressBookData.address, addressBookData.city, addressBookData.state, addressBookData.zip, addressBookData.phoneNumber,
+                        addressBookData.email, addressBookData.date);
+                contactAdditionStatus.put(addressBookData.hashCode(), true);
+                System.out.println("Employee added : " + Thread.currentThread().getName());
+            };
+            Thread thread = new Thread(task, addressBookData.name);
+            thread.start();
+        });
+        while (contactAdditionStatus.containsValue(false)) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("" + this.addressBookDataList);
+    }
+
 
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
