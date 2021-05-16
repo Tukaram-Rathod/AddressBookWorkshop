@@ -24,6 +24,7 @@ public class AddressBook {
                     "\n6. Search Person By state" +
                     "\n7. Count Person By state" +
                     "\n8. Count Person By City" +
+                    "\n9. Sort Person" +
                     "\n0. Exit");
             int userInput = sc.nextInt();
             switch (userInput) {
@@ -50,6 +51,9 @@ public class AddressBook {
                     break;
                 case 8:
                     addressbook.countPersonByState();
+                    break;
+                case 9:
+                    addressbook.sortPersonByFirstname();
                     break;
                 default:
                     System.out.println("You press exit.\nThank You!");
@@ -213,6 +217,20 @@ public class AddressBook {
         for (Enumeration i = dictWithState.keys(); i.hasMoreElements(); ) {
             System.out.println(i.nextElement());
         }
+    }
+    /* Description - sort the entries in the address book alphabetically by Person’s name */
+    public void sortPersonByFirstname(){
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        System.out.println("Contact list before sorting the list");
+        for (Contacts cont : conatactlist){
+            System.out.println(cont.getFirstName() + cont.getLastName());
+        }
+        System.out.println("Contact list after sorting the list");
+        conatactlist.stream();
+        conatactlist.sort(Comparator.comparing(Contacts::getFirstName));
+        conatactlist.forEach((Contacts cont) -> System.out.println(cont.getFirstName() + " " + cont.getLastName()));
     }
     /*Main Method*/
     public static void main(String[] args) {
