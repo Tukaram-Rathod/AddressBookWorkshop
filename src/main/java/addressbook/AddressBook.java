@@ -24,7 +24,10 @@ public class AddressBook {
                     "\n6. Search Person By state" +
                     "\n7. Count Person By state" +
                     "\n8. Count Person By City" +
-                    "\n9. Sort Person" +
+                    "\n9. Sort Person By First Name" +
+                    "\n10. Sort Person By City" +
+                    "\n11. Sort Person By State" +
+                    "\n12. Sort Person By Zip Code" +
                     "\n0. Exit");
             int userInput = sc.nextInt();
             switch (userInput) {
@@ -54,6 +57,15 @@ public class AddressBook {
                     break;
                 case 9:
                     addressbook.sortPersonByFirstname();
+                    break;
+                case 10:
+                    addressbook.sortPersonByCity();
+                    break;
+                case 11:
+                    addressbook.sortPersonByState();
+                    break;
+                case 12:
+                    addressbook.sortPersonByZipCode();
                     break;
                 default:
                     System.out.println("You press exit.\nThank You!");
@@ -231,6 +243,51 @@ public class AddressBook {
         conatactlist.stream();
         conatactlist.sort(Comparator.comparing(Contacts::getFirstName));
         conatactlist.forEach((Contacts cont) -> System.out.println(cont.getFirstName() + " " + cont.getLastName()));
+    }
+    /* Description - sort the entries in the address book alphabetically by Person’s city */
+    public void sortPersonByCity(){
+        System.out.println("---Sort by City---");
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        System.out.println("Contact list before sorting the list");
+        for (Contacts cont : conatactlist){
+            System.out.println(cont.getCity() + " : " + cont.getFirstName() + " " + cont.getLastName());
+        }
+        System.out.println("Contact list after sorting the list");
+        conatactlist.stream();
+        conatactlist.sort(Comparator.comparing(Contacts::getCity));
+        conatactlist.forEach((Contacts cont) -> System.out.println(cont.getCity() + " : " +cont.getFirstName() + " " + cont.getLastName()));
+    }
+    /* Description - sort the entries in the address book alphabetically by Person’s state */
+    public void sortPersonByState(){
+        System.out.println("---Sort by State---");
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        System.out.println("Contact list before sorting the list");
+        for (Contacts cont : conatactlist){
+            System.out.println(cont.getState() + " : " +cont.getFirstName() + " "+ cont.getLastName());
+        }
+        System.out.println("Contact list after sorting the list");
+        conatactlist.stream();
+        conatactlist.sort(Comparator.comparing(Contacts::getState));
+        conatactlist.forEach((Contacts cont) -> System.out.println(cont.getState() + " : " + cont.getFirstName() + " " + cont.getLastName()));
+    }
+    /* Description - sort the entries in the address book alphabetically by Person’s zip code */
+    public void sortPersonByZipCode(){
+        System.out.println("---Sort by ZipCode---");
+        Collection<Contacts> values = contacts.values();
+        ArrayList<Contacts> conatactlist
+                = new ArrayList<>(values);
+        System.out.println("Contact list before sorting the list");
+        for (Contacts cont : conatactlist){
+            System.out.println(cont.getZip() + " : " +cont.getFirstName() + " "+ cont.getLastName());
+        }
+        System.out.println("Contact list after sorting the list");
+        conatactlist.stream();
+        conatactlist.sort(Comparator.comparing(Contacts::getZip));
+        conatactlist.forEach((Contacts cont) -> System.out.println(cont.getZip() + " : " +cont.getFirstName() + " " + cont.getLastName()));
     }
     /*Main Method*/
     public static void main(String[] args) {
