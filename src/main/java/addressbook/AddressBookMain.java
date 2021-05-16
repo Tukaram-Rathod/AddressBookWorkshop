@@ -103,6 +103,11 @@ public class AddressBookMain {
     public Map<String, Integer> readContactByCityOrState() {
         return addressBookDB.getContactsByCityOrState();
     }
+    //UC-20
+    public void addContactToDB(int type, String name, String firstName, String lastName, String address, String city, String state,
+                               int zip, String phoneNumber, String email, Date date) {
+        addressBookDataList.add(addressBookDB.addContact(type, name, firstName, lastName, address, city, state, zip, phoneNumber, email, (java.sql.Date) date));
+    }
 
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))

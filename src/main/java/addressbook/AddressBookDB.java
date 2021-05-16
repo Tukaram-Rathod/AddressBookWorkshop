@@ -59,6 +59,47 @@ public class AddressBookDB {
         }
         return contactByCityOrStateMap;
     }
+    //UC-20
+    public Contacts addContact(int type, String name, String firstName, String lastName, String address, String city, String state, int zip,
+                                      String phoneNumber, String email, Date date) {
+        Connection connection = null;
+        try {
+            connection = this.getConnection();
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assert connection != null;
+            Statement statement = connection.createStatement();
+            String sql = String.format(
+                    "INSERT INTO address_book_table" +
+                            "(type,name,firstName,lastName,address,city,state,zip,phoneNumber,email,date_added) " +
+                            "values ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+                    type, name, firstName, lastName, address, city, state, zip, phoneNumber, email, date);
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e1) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return new Contacts(type, name, firstName, lastName, address, city, state, zip, phoneNumber, email, date);
+    }
     private List<Contacts> getContactDetailsUsingSqlQuery(String sql) {
         List<Contacts> addressBookDataList = null;
         try (Connection connection = getConnection()) {

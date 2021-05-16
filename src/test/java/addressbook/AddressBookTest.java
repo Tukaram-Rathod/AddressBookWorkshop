@@ -2,6 +2,7 @@ package addressbook;
 
 import org.junit.Assert;
 import org.junit.Test;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +69,16 @@ public class AddressBookTest {
         Map<String, Integer> contactByCityOrStateMap = addressBook.readContactByCityOrState();
         Assert.assertEquals((int) contactByCityOrStateMap.get("Parbhani"), 1);
         Assert.assertEquals((int) contactByCityOrStateMap.get("Maharashtra"), 2);
+    }
+    //uc-20
+    @Test
+    public void givenNewContact_WhenAdded_ShouldSyncWithDB() {
+        AddressBookMain addressBook = new AddressBookMain();
+        addressBook.readAddressBookDataDB(AddressBookMain.IOService.DB_IO);
+        addressBook.addContactToDB(1,"Shreya Patil","Shreya", "Patil", "Hadapsar", "Pune", "Maharashtra", 411056,
+                "9988771122", "shreyapatil@gmail.com", Date.valueOf("2021-05-15"));
+        boolean result = addressBook.checkAddressBookInSyncWithDB("Shreya Patil");
+        Assert.assertTrue(result);
     }
 
 }
