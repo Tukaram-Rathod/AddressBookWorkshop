@@ -12,6 +12,6 @@ public class AddressBookTest {
     public void givenThreeContactsInDB_WhenRetrieved_ShouldMatchEmployeeCount() {
         AddressBookList addressBookList = new AddressBookList();
         addressBookContactList = addressBookList.readAddressBookData(AddressBookList.IOService.DB_IO);
-        Assertions.assertEquals(3, addressBookContactList.size());
+        Assertions.assertEquals(5, addressBookContactList.size());
     }
 }

@@ -48,9 +48,9 @@ public class AddressBook {
                 String city = resultSet.getString("city");
                 String state = resultSet.getString("state");
                 int zip = resultSet.getInt("zip");
-                long mobileNumber = resultSet.getLong("mobileNumber");
-                String emailId = resultSet.getString("emailId");
-                contacts.add(new Contacts(firstName, lastName, address, city, state, zip, mobileNumber, emailId));
+                long phoneNumber = resultSet.getLong("phoneNumber");
+                String email = resultSet.getString("email");
+                contacts.add(new Contacts(firstName, lastName, address, city, state, zip, phoneNumber, email));
             }
         } catch (SQLException e) {
             e.printStackTrace();
