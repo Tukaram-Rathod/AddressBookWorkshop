@@ -102,7 +102,7 @@ public class AddressBook {
     }
     /* Description - create new address book */
     public void createNewAddressBook() {
-        System.out.println("Enter the name for Address Book:");
+        System.out.println("Enter The Name For Address Book:");
         String addressBookName = sc.next();
         AddressBookList addressBookListobj = new AddressBookList(addressBookName);
     }
