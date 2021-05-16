@@ -3,6 +3,7 @@ package addressbook;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class AddressBookDB {
     public static AddressBookDB addressBookDB;
@@ -23,6 +24,13 @@ public class AddressBookDB {
     //uc-17
     int updateAddressBookData(String name, String phoneNumber) {
         return this.updateAddressBookDataUsingPreparedStatement(name,phoneNumber);
+    }
+    //UC-18
+    public List<Contacts> getContactForGivenDateRange(LocalDate startDate, LocalDate endDate) {
+        String sql = String.format(
+                "SELECT * from address_book_table WHERE date_added BETWEEN '%s' AND '%s';",
+                Date.valueOf(startDate), Date.valueOf(endDate));
+        return this.getContactDetailsUsingSqlQuery(sql);
     }
     private List<Contacts> getContactDetailsUsingSqlQuery(String sql) {
         List<Contacts> addressBookDataList = null;

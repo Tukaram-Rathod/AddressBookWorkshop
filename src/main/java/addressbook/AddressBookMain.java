@@ -1,6 +1,7 @@
 package addressbook;
 
 import java.util.*;
+import java.time.LocalDate;
 
 public class AddressBookMain {
     public static final String CSV_FILE_PATH = "address-book-csv.csv";
@@ -91,6 +92,11 @@ public class AddressBookMain {
     public boolean checkAddressBookInSyncWithDB(String name) {
         List<Contacts> addressBookDataList = addressBookDB.getAddressBookData(name);
         return addressBookDataList.get(0).equals(getAddressBookData(name));
+    }
+    //uc-18
+    public List<Contacts> readContactDataForGivenDateRange(LocalDate startDate, LocalDate endDate) {
+        this.addressBookDataList = addressBookDB.getContactForGivenDateRange(startDate, endDate);
+        return addressBookDataList;
     }
 
     public long countEntries(IOService ioService) {

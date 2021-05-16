@@ -2,7 +2,7 @@ package addressbook;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,6 +48,16 @@ public class AddressBookTest {
         addressBookMain.updateAddressBook(" Suresh Gore", "7000541230");
         boolean result = addressBookMain.checkAddressBookInSyncWithDB(" Suresh Gore");
         Assert.assertTrue(result);
+    }
+    //UC-18
+    @Test
+    public void givenDateRange_WhenRetrieved_ShouldMatchEmployeeCount() {
+        AddressBookMain addressBook = new AddressBookMain();
+        addressBook.readAddressBookDataDB(AddressBookMain.IOService.DB_IO);
+        LocalDate startDate = LocalDate.of(2019, 01, 1);
+        LocalDate endDate = LocalDate.now();
+        List<Contacts> addressBookDataList = addressBook.readContactDataForGivenDateRange(startDate, endDate);
+        Assert.assertEquals(4, addressBookDataList.size());
     }
 
 }
